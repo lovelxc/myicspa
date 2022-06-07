@@ -1,5 +1,5 @@
-STUID = 201220000
-STUNAME = 张三
+STUID = 2018172019
+STUNAME = zengwencan
 
 # DO NOT modify the following code!!!
 
