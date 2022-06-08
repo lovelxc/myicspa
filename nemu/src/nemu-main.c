@@ -1,4 +1,5 @@
 #include <common.h>
+#include <debug.h>
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
@@ -15,6 +16,8 @@ int main(int argc, char *argv[]) {
   /* Start engine. */
   engine_start();
 
-  return is_exit_status_bad();
-//  return 0;
+  if(is_exit_status_bad()){
+	Log("exit_status is bad!");
+  }
+  return 0;
 }
