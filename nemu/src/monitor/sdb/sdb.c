@@ -41,14 +41,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  switch (nemu_state.state) {
-    case NEMU_END: case NEMU_ABORT:
-      printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
-      return -1;
-    default: nemu_state.state = NEMU_RUNNING;
-  }
-  int n = 0;
-  
+  int n = 1;
   if(!args) sscanf(args, "%d", &n);
   Log("execute %d line.", n);
   cpu_exec(n);
