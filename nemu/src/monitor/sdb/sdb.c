@@ -1,6 +1,7 @@
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <cpu/exec.h>
+#include <memory/paddr.h>
 #include <utils.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -60,6 +61,13 @@ static int cmd_si(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args) {
+  int expr;
+  sscanf(args, "%x", &expr);
+  printf("%d", *guest_to_host(expr));
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -72,6 +80,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute next or next \%n program line", cmd_si},
   { "info", "List of all registers and their contents, for selected stack frame", cmd_info},
+  { "x", "Print the value of EXP", cmd_x},
 
   /* TODO: Add more commands */
 
