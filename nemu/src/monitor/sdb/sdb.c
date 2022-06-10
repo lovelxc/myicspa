@@ -48,7 +48,7 @@ static int cmd_si(char *args) {
     default: nemu_state.state = NEMU_RUNNING;
   }
   int n = 0;
-  Log("%d", (int)strlen(args));
+  
   if(!args) sscanf(args, "%d", &n);
   Log("execute %d line.", n);
   cpu_exec(n);
