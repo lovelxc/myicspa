@@ -91,7 +91,7 @@ static bool make_token(char *e) {
         //   default: TODO();
         // }
         // 检查是否溢出
-        assert(!tokens[nr_token].str[31]);
+        assert(ARRLEN(tokens[nr_token].str) < 32);
         break;
       }
     }
