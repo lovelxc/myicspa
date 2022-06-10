@@ -1,6 +1,6 @@
 #include <isa.h>
 #include <cpu/cpu.h>
-#include <cpu/decode.h>
+#include <cpu/exec.h>
 #include <utils.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -40,22 +40,23 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
-  // switch (nemu_state.state) {
-  //   case NEMU_END: case NEMU_ABORT:
-  //     printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
-  //     return -1;
-  //   default: nemu_state.state = NEMU_RUNNING;
-  // }
-  // int n = 0;
-  // if(strlen(args) > 0) sscanf(args, "%d", &n);
-  // Log("%d", n);
+  switch (nemu_state.state) {
+    case NEMU_END: case NEMU_ABORT:
+      printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
+      return -1;
+    default: nemu_state.state = NEMU_RUNNING;
+  }
+  int n = 0;
+  if(strlen(args) > 0) sscanf(args, "%d", &n);
+  Log("%d", n);
   // Decode s;
-  // while(n--){
-  //   fetch_decode_exec_updatepc(&s);
-  //   trace_and_difftest(&s, cpu.pc);
-  //   if (nemu_state.state != NEMU_RUNNING) break;
-  //   // IFDEF(CONFIG_DEVICE, device_update());
-  // }
+  while(n--){
+    // fetch_decode_exec_updatepc(&s);
+    // trace_and_difftest(&s, cpu.pc);
+    cpu.pc = 1;
+    if (nemu_state.state != NEMU_RUNNING) break;
+    // IFDEF(CONFIG_DEVICE, device_update());
+  }
   
   return 0;
 }
