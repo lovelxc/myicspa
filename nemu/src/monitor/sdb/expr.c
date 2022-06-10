@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM
+  TK_NOTYPE = 256, TK_EQ, TK_NUM_10, TK_NUM_16
 
   /* TODO: Add more token types */
 
@@ -19,17 +19,18 @@ static struct rule {
 
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
+   * 添加寄存器的识别模式
    */
-
-  {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
   {"\\-", '-'},         // minus
   {"\\*", '*'},         // muti
   {"\\/", '/'},         // divide
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
-  {"[1-9]\\d*", TK_NUM},				  // 10num
+  {"==", TK_EQ},        // equal
+  {" +", TK_NOTYPE},    // spaces
+  {"[1-9]\\d*", TK_NUM_10},				  // 8: 10num
+  {"0[xX]\\d{1,8}", TK_NUM_16},				  // 9: 16num
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -79,16 +80,18 @@ static bool make_token(char *e) {
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
-        printf("%s\n", e + position);
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
-        // switch (rules[i].token_type) {
-        //   default: TODO();
-        // }
-
+        tokens[nr_token].type = rules[i].token_type;
+        // tokens[nr_token].str 的长度有限， 需要考虑
+        switch (rules[i].token_type) {
+          case 8:
+          default: TODO();
+        }
+        // 检查是否溢出
+        Assert(tokens[nr_token].str[31]);
         break;
       }
     }
