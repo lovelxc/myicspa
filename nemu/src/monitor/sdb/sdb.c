@@ -5,6 +5,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+
 static int is_batch_mode = false;
 
 void init_regex();
@@ -51,7 +52,6 @@ static int cmd_si(char *args) {
   // Decode s;
   // while(n--){
   //   fetch_decode_exec_updatepc(&s);
-  //   g_nr_guest_instr ++;
   //   trace_and_difftest(&s, cpu.pc);
   //   if (nemu_state.state != NEMU_RUNNING) break;
   //   // IFDEF(CONFIG_DEVICE, device_update());
