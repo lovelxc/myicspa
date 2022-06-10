@@ -29,7 +29,7 @@ static struct rule {
   {"\\/", '/'},         // divide
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
-  {"[1-9][0-9]*", TK_NUM},				  // divide
+  {"[1-9]\\d*", TK_NUM},				  // 10num
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -79,7 +79,7 @@ static bool make_token(char *e) {
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
-        printf("%s", e + position);
+        printf("%s\n", e + position);
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
