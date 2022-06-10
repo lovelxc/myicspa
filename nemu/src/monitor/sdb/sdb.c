@@ -49,8 +49,8 @@ static int cmd_si(char *args) {
   }
   int n = 0;
   if(strlen(args) > 0) sscanf(args, "%d", &n);
-  Log("%d", n);
-
+  Log("execute %d line.", n);
+  cpu_exec(n);
   return 0;
 }
 
