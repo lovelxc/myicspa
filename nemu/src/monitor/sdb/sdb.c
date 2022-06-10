@@ -41,6 +41,15 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  int n = 1;
+  // args不为空时才去读，否则默认执行1步
+  if(args) sscanf(args, "%d", &n);
+  Log("execute %d line.", n);
+  cpu_exec(n);
+  return 0;
+}
+
 static int cmd_info(char *args) {
   char *op = strtok(args, " ");
   if(strcmp("r", op) == 0){
@@ -49,15 +58,6 @@ static int cmd_info(char *args) {
     // print watch patch
     ;
   }
-  return 0;
-}
-
-static int cmd_si(char *args) {
-  int n = 1;
-  // args不为空时才去读，否则默认执行1步
-  if(args) sscanf(args, "%d", &n);
-  Log("execute %d line.", n);
-  cpu_exec(n);
   return 0;
 }
 
