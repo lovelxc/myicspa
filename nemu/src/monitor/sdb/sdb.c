@@ -98,6 +98,7 @@ void sdb_mainloop() {
      * which may need further parsing
      */
     char *args = cmd + strlen(cmd) + 1;
+    printf("%s", args);
     if (args >= str_end) {
       args = NULL;
     }
