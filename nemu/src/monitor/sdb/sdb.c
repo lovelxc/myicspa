@@ -67,7 +67,7 @@ static int cmd_x(char *args) {
   uint32_t t;
   for (int i = 0; i < n; ++i){
     memcpy(&t, guest_to_host(expr), sizeof(uint32_t));
-    printf("%x\n", t);
+    printf("%X\n", t);
     expr += sizeof(uint32_t);
   }
   return 0;
