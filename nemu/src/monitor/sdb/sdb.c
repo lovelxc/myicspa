@@ -40,6 +40,16 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_info(char *args) {
+  if(strcmp("r", args) == 0){
+    isa_reg_display();
+  } else if(strcmp("w", args) == 0){
+    // print watch patch
+    ;
+  }
+  return 0;
+}
+
 static int cmd_si(char *args) {
   int n = 1;
   // args不为空时才去读，否则默认执行1步
@@ -60,6 +70,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute next or next \%n program line", cmd_si},
+  { "info", "List of all registers and their contents, for selected stack frame", cmd_info},
 
   /* TODO: Add more commands */
 
