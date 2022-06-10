@@ -29,8 +29,9 @@ static struct rule {
   {"\\)", ')'},	        // right parentheses
   {"==", TK_EQ},        // equal
   {" +", TK_NOTYPE},    // spaces
+  {"0[xX][\\da-fA-F]{1,8}", TK_NUM_16},				  // 9: 16num
   {"[1-9]\\d*", TK_NUM_10},				  // 8: 10num
-  {"^0[xX][\\da-fA-F]{1,8}", TK_NUM_16},				  // 9: 16num
+  
 };
 
 #define NR_REGEX ARRLEN(rules)
