@@ -42,7 +42,7 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   int n = 1;
-  if(!args) sscanf(args, "%d", &n);
+  if(args) sscanf(args, "%d", &n);
   Log("execute %d line.", n);
   cpu_exec(n);
   return 0;
