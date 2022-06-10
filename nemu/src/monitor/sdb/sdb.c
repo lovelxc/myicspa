@@ -62,13 +62,16 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_x(char *args) {
-  int expr, n;
-  sscanf(args, "%d %x", &n, &expr);
-  uint32_t t;
+  int n;
+  char _expr[100];
+  sscanf(args, "%d %s", &n, _expr);
+  // uint32_t t;
+  bool bl;
   for (int i = 0; i < n; ++i){
-    memcpy(&t, guest_to_host(expr), sizeof(uint32_t));
-    printf("0x%08x\n", t);
-    expr += sizeof(uint32_t);
+	expr(_expr, &bl);
+    // memcpy(&t, guest_to_host(_expr), sizeof(uint32_t));
+    // printf("0x%08x\n", t);
+    // _expr += sizeof(uint32_t);
   }
   return 0;
 }
