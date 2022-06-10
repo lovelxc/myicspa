@@ -33,9 +33,11 @@ $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	$(call call_fixdep, $(@:.o=.d), $@)
-$(OBJ_DIR)/sdb.o:sdb.c cpu-exec.c
+
+$(OBJ_DIR)/sdb.o:$(NEMU_HOME)/src/monitor/sdb.c $(NEMU_HOME)/src/cpu/cpu-exec.c
 	@echo + CC1 sdb.o <- sdb.c cpu-exec.c
 	@$(CC) $(CFLAGS) -c -o sdb.c cpu-exec.c
+
 $(OBJ_DIR)/%.o: %.cc
 	@echo + CXX $<
 	@mkdir -p $(dir $@)
