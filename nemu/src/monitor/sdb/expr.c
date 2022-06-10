@@ -29,7 +29,7 @@ static struct rule {
   {"\\/", '/'},         // divide
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
-  {"\\d*", TK_NUM},				  // 10num
+  {"[1-9]\\d*", TK_NUM},				  // 10num
 };
 
 #define NR_REGEX ARRLEN(rules)
