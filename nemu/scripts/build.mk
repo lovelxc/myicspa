@@ -36,7 +36,7 @@ $(OBJ_DIR)/%.o: %.c
 
 $(OBJ_DIR)/sdb.o:sdb.c cpu-exec.c
 	@echo + CC1 sdb.o <- sdb.c cpu-exec.c
-	@$(CC) $(CFLAGS) -c -o sdb.c cpu-exec.c
+	@$(CC) $(CFLAGS) -c -o sdb sdb.c cpu-exec.c
 
 $(OBJ_DIR)/%.o: %.cc
 	@echo + CXX $<
