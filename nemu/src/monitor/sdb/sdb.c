@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <cpu/cpu.h>
+#include <utils.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
@@ -37,6 +38,20 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  switch (nemu_state.state) {
+    case NEMU_END: case NEMU_ABORT:
+      printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
+      return -1;
+    default: nemu_state.state = NEMU_RUNNING;
+  }
+  int n;
+  sscanf(args, "%d", &n);
+  Log("%d", n);
+  if (nemu_state.state != NEMU_RUNNING) ;//break;
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -47,7 +62,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { ""}
+  { "si", "danbu", cmd_si},
+
   /* TODO: Add more commands */
 
 };
