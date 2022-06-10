@@ -41,9 +41,10 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_info(char *args) {
-  if(strcmp("r", args) == 0){
+  char *op = strtok(args, " ");
+  if(strcmp("r", op) == 0){
     isa_reg_display();
-  } else if(strcmp("w", args) == 0){
+  } else if(strcmp("w", op) == 0){
     // print watch patch
     ;
   }
