@@ -35,7 +35,7 @@ $(OBJ_DIR)/%.o: %.c
 	$(call call_fixdep, $(@:.o=.d), $@)
 
 $(OBJ_DIR)/sdb.o:sdb.c cpu-exec.c
-	@echo + CC1 sdb.o <- sdb.c cpu-exec.c
+	@echo + CC1 sdb.o
 	@$(CC) $(CFLAGS) -c -o sdb sdb.c cpu-exec.c
 
 $(OBJ_DIR)/%.o: %.cc
