@@ -86,10 +86,10 @@ static bool make_token(char *e) {
          */
         tokens[nr_token].type = rules[i].token_type;
         // tokens[nr_token].str 的长度有限， 需要考虑
-        switch (rules[i].token_type) {
-          case 8:
-          default: TODO();
-        }
+        // switch (rules[i].token_type) {
+        //   case 8:
+        //   default: TODO();
+        // }
         // 检查是否溢出
         assert(tokens[nr_token].str[31]);
         break;
