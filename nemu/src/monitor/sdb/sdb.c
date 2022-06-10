@@ -42,6 +42,7 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   int n = 1;
+  // args不为空时才去读，否则默认执行1步
   if(args) sscanf(args, "%d", &n);
   Log("execute %d line.", n);
   cpu_exec(n);
@@ -58,7 +59,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "danbu", cmd_si},
+  { "si", "Execute next or next \%n program line", cmd_si},
 
   /* TODO: Add more commands */
 
