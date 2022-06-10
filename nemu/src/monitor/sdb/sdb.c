@@ -47,7 +47,7 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { ""}
   /* TODO: Add more commands */
 
 };
@@ -98,7 +98,6 @@ void sdb_mainloop() {
      * which may need further parsing
      */
     char *args = cmd + strlen(cmd) + 1;
-    Log("%s", args);
     if (args >= str_end) {
       args = NULL;
     }
