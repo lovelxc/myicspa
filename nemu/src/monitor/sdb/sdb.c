@@ -1,10 +1,11 @@
 #include <isa.h>
 #include <cpu/cpu.h>
+#include <cpu/decode.h>
 #include <utils.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-
+#include "../../cpu/cpu-exec.c"
 static int is_batch_mode = false;
 
 void init_regex();
@@ -45,10 +46,18 @@ static int cmd_si(char *args) {
       return -1;
     default: nemu_state.state = NEMU_RUNNING;
   }
-  int n;
-  sscanf(args, "%d", &n);
+  int n = 0;
+  if(strlen(args) > 0) sscanf(args, "%d", &n);
   Log("%d", n);
-  if (nemu_state.state != NEMU_RUNNING) ;//break;
+  Decode s;
+  while(n--){
+    fetch_decode_exec_updatepc(&s);
+    g_nr_guest_instr ++;
+    trace_and_difftest(&s, cpu.pc);
+    if (nemu_state.state != NEMU_RUNNING) break;
+    // IFDEF(CONFIG_DEVICE, device_update());
+  }
+  
   return 0;
 }
 
