@@ -36,6 +36,7 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;
 }
 
@@ -49,7 +50,7 @@ static int cmd_si(char *args) {
   int n = 0;
   if(strlen(args) > 0) sscanf(args, "%d", &n);
   Log("%d", n);
-  
+
   return 0;
 }
 
