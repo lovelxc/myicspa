@@ -64,7 +64,7 @@ static int cmd_si(char *args) {
 static int cmd_x(char *args) {
   int expr;
   sscanf(args, "%x", &expr);
-  printf("%d", *guest_to_host(expr));
+  printf("%ld\n", sizeof(*guest_to_host(expr)));
   return 0;
 }
 
