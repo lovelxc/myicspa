@@ -101,7 +101,7 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
+  printf("%s", e + position);
   return true;
 }
 
@@ -113,7 +113,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  // TODO();
 
   return 0;
 }
