@@ -133,13 +133,12 @@ static word_t eval(int p, int q){
      * Return the value of the number.
      */
     word_t num;
-    char *_format[10];
     switch (tokens[p].type) {
       case TK_NUM_10:
-        sscanf(tokens[p].str, "%u", &num);
+        sscanf(tokens[p].str, "%lu", &num);
         break;
       case TK_NUM_16:
-        sscanf(tokens[p].str, "%x", &num);
+        sscanf(tokens[p].str, "%lx", &num);
         break;
       default:
         break;
