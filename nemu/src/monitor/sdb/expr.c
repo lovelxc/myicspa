@@ -90,6 +90,7 @@ static bool make_token(char *e) {
           case TK_NUM_10:
           case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
+            printf("%s", tokens[nr_token].str);
             break;
           // default: TODO();
         }
