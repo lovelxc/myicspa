@@ -15,7 +15,7 @@ void isa_reg_display() {
     check_reg_idx(i);
     printf("%-8s  0x%08lx  %ld\n", reg_name(i,4), gpr(i), gpr(i));
   }
-  printf("PC:     0x%08lx  %ld\n", (uint64_t)cpu.pc, (uint64_t)cpu.pc);
+  printf("PC:       0x%08lx  %ld\n", (uint64_t)cpu.pc, (uint64_t)cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
