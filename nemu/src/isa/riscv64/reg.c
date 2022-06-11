@@ -9,10 +9,11 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-  // bool t;
+  bool t;
   for(int i = 0; i < 32; ++i){
-    printf("%-6s %ld\n", reg_name(i,4), gpr(i));
+    printf("%-6s %ld\n", reg_name(i,4), isa_reg_str2val(reg_name(i,4),t));
   }
+  printf("PC:%-6s %ld\n", (uint64_t)cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
