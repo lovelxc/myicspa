@@ -63,7 +63,7 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char *args) {
   char *_expr = strtok(args, " ");;
-  int n = itoa(_expr);
+  int n = atoi(_expr);
   _expr = strtok(NULL, " ");
   // uint32_t t;
   bool bl;
