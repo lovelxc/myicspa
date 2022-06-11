@@ -86,10 +86,14 @@ static bool make_token(char *e) {
          */
         tokens[nr_token].type = rules[i].token_type;
         // tokens[nr_token].str 的长度有限， 需要考虑
-        // switch (rules[i].token_type) {
-        //   case 8:
-        //   default: TODO();
-        // }
+        switch (rules[i].token_type) {
+          case 8:
+          case 9:
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            break;
+          // default: TODO();
+        }
+        ++nr_token;
         // 检查是否溢出
         // assert(ARRLEN(tokens[nr_token].str) < 32);
         break;
