@@ -21,6 +21,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    * 添加寄存器的识别模式，目前十进制常数不能为0
    */
+  {"\\s+", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"\\-", '-'},         // minus
   {"\\*", '*'},         // muti
@@ -28,7 +29,7 @@ static struct rule {
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
   {"==", TK_EQ},        // equal
-  {"\\s+", TK_NOTYPE},    // spaces
+  
   {"([1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
