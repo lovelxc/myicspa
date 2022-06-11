@@ -10,11 +10,12 @@ const char *regs[] = {
 
 void isa_reg_display() {
   // bool t;
+  printf("reg_name  value(16) value(10)");
   for(int i = 0; i < 32; ++i){
     check_reg_idx(i);
-    printf("%-6s 0x%lx\n", reg_name(i,4), gpr(i));
+    printf("%-8s 0x%8lx %ld\n", reg_name(i,4), gpr(i), gpr(i));
   }
-  printf("PC: 0x%8lx\n", (uint64_t)cpu.pc);
+  printf("PC:    0x%8lx %ld\n", (uint64_t)cpu.pc, (uint64_t)cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
