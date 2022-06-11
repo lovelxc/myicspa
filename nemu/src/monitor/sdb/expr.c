@@ -19,7 +19,7 @@ static struct rule {
 
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
-   * 添加寄存器的识别模式
+   * 添加寄存器的识别模式，目前常数不能为0
    */
   {"\\+", '+'},         // plus
   {"\\-", '-'},         // minus
@@ -29,7 +29,7 @@ static struct rule {
   {"\\)", ')'},	        // right parentheses
   {"==", TK_EQ},        // equal
   {" +", TK_NOTYPE},    // spaces
-  {"(0|[1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
+  {"([1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
 
