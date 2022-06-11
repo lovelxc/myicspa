@@ -29,7 +29,7 @@ static struct rule {
   {"\\)", ')'},	        // right parentheses
   {"==", TK_EQ},        // equal
   {" +", TK_NOTYPE},    // spaces
-  {"[1-9]\\d*", TK_NUM_10},				  // 8: 10num
+  {"(0|[1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
 
