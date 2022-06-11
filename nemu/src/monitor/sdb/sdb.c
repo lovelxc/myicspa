@@ -67,7 +67,8 @@ static int cmd_x(char *args) {
   sscanf(args, "%d %s", &n, _expr);
   // uint32_t t;
   bool bl;
-  expr(_expr, &bl);
+  word_t ans = expr(_expr, &bl);
+  printf("%lu\n", ans);
   for (int i = 0; i < n; ++i){
 	
     // memcpy(&t, guest_to_host(_expr), sizeof(uint32_t));

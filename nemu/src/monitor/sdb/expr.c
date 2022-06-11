@@ -87,8 +87,8 @@ static bool make_token(char *e) {
         tokens[nr_token].type = rules[i].token_type;
         // tokens[nr_token].str 的长度有限， 需要考虑
         switch (rules[i].token_type) {
-          case 8:
-          case 9:
+          case TK_NUM_10:
+          case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             break;
           // default: TODO();
@@ -109,39 +109,79 @@ static bool make_token(char *e) {
   return true;
 }
 
-// static word_t eval(int p, int q){
-//   int 
-//   if (p > q) {
-//     /* Bad expression */
-//   }
-//   else if (p == q) {
-//     /* Single token.
-//      * For now this token should be a number.
-//      * Return the value of the number.
-//      */
-//     word_t num;
-    
-//   }
-//   else if (check_parentheses(p, q) == true) {
-//     /* The expression is surrounded by a matched pair of parentheses.
-//      * If that is the case, just throw away the parentheses.
-//      */
-//     return eval(p + 1, q - 1);
-//   }
-//   else {
-//     op = the position of 主运算符 in the token expression;
-//     val1 = eval(p, op - 1);
-//     val2 = eval(op + 1, q);
+static bool check_parentheses(int p, int q){
+  if(tokens[p].type=='(' && tokens[q].type==')'){
+    int t = 0;
+    p++;
+    while(p < q && t >= 0) {
+      if(tokens[p].type=='(') t++;
+      if(tokens[p].type==')') t--;
+    }
+    return (t == 0);
+  }
+  return false;
+}
 
-//     switch (op_type) {
-//       case '+': return val1 + val2;
-//       case '-': /* ... */
-//       case '*': /* ... */
-//       case '/': /* ... */
-//       default: assert(0);
-//     }
-//   }
-// }
+static word_t eval(int p, int q){
+  if (p > q) {
+    /* Bad expression */
+    return -1;
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    word_t num;
+    char *_format[10];
+    switch (tokens[p].type) {
+      case TK_NUM_10:
+        sscanf(tokens[p].str, "%u", &num);
+        break;
+      case TK_NUM_16:
+        sscanf(tokens[p].str, "%x", &num);
+        break;
+      default:
+        break;
+    }
+    
+    return num;
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    int op = -1, op2 = -1 , t = 0;
+    for(int i=q; i>=p; --i){
+      switch (tokens[i].type) {
+        case ')': t++;break;
+        case '(': t--;break;
+      }
+      if(t == 0){
+        if(tokens[i].type=='+' || tokens[i].type=='-') {
+          op = i;
+          break;
+        }else if(tokens[i].type=='*' || tokens[i].type=='/') op2 = i;
+      }
+      else if(t < 0) return -1; // 括号不匹配
+    }
+    if(op==-1) op = op2;
+    if(t!=0 || op==-1) return -1; // 括号不匹配
+    word_t val1 = eval(p, op - 1);
+    word_t val2 = eval(op + 1, q);
+
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 /  val2;
+      default: panic("error type found");
+    }
+  }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -151,7 +191,12 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  // TODO();
+  word_t ans = eval(0, nr_token - 1);
+  if(ans == -1){
+    *success = false;
+    TODO();
+    return 0;
+  }
 
-  return 0;
+  return ans;
 }
