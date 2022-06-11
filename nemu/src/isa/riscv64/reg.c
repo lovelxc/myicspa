@@ -9,7 +9,7 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-  bool t;
+  // bool t;
   for(int i = 0; i < 32; ++i){
     check_reg_idx(i);
     printf("%-6s 0x%lx\n", reg_name(i,4), gpr(i));
