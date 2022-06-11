@@ -67,7 +67,7 @@ static int cmd_x(char *args) {
   _expr = strtok(NULL, " ");
   // uint32_t t;
   bool bl;
-  printf("expr = %s", _expr);
+  printf("expr = %s", args);
   word_t ans = expr(_expr, &bl);
   printf("ans=%u\n", ans);
   for (int i = 0; i < n; ++i){
