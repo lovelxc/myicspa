@@ -84,7 +84,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        if(rules[i].token_type == TK_NOTYPE) continue; // 忽略空格
+        if(rules[i].token_type == TK_NOTYPE) break; // 忽略空格
         tokens[nr_token].type = rules[i].token_type;
         // tokens[nr_token].str 的长度有限， 需要考虑
         switch (rules[i].token_type) {
