@@ -62,9 +62,9 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  int n;
-  char _expr[100];
-  sscanf(args, "%d %s", &n, _expr);
+  char *_expr = strtok(args, " ");;
+  int n = itoa(_expr);
+  _expr = strtok(NULL, " ");
   // uint32_t t;
   bool bl;
   word_t ans = expr(_expr, &bl);
