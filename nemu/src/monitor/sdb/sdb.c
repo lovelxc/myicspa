@@ -68,7 +68,7 @@ static int cmd_x(char *args) {
   // uint32_t t;
   bool bl;
   word_t ans = expr(_expr, &bl);
-  printf("%lu\n", ans);
+  printf("%u\n", ans);
   for (int i = 0; i < n; ++i){
 	
     // memcpy(&t, guest_to_host(_expr), sizeof(uint32_t));

@@ -90,7 +90,7 @@ static bool make_token(char *e) {
           case TK_NUM_10:
           case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
-            printf("%s", tokens[nr_token].str);
+            printf("%s\n", tokens[nr_token].str);
             break;
           // default: TODO();
         }
@@ -136,10 +136,10 @@ static word_t eval(int p, int q){
     word_t num;
     switch (tokens[p].type) {
       case TK_NUM_10:
-        sscanf(tokens[p].str, "%lu", &num);
+        sscanf(tokens[p].str, "%u", &num);
         break;
       case TK_NUM_16:
-        sscanf(tokens[p].str, "%lx", &num);
+        sscanf(tokens[p].str, "%x", &num);
         break;
       default:
         break;
