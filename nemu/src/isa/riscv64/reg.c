@@ -11,11 +11,13 @@ const char *regs[] = {
 void isa_reg_display() {
   bool t;
   for(int i = 0; i < 32; ++i){
-    printf("%-6s 0x%lx\n", reg_name(i,4), isa_reg_str2val(reg_name(i,4), &t));
+    check_reg_idx(i);
+    printf("%-6s 0x%lx\n", reg_name(i,4), gpr(i));
   }
-  printf("PC: 0x%80lx\n", (uint64_t)cpu.pc);
+  printf("PC: 0x%8lx\n", (uint64_t)cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+
   return 0;
 }
