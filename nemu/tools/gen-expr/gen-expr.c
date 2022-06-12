@@ -28,8 +28,8 @@ static void gen_num(){
   unsigned n = rand();
   char s[33];
   switch (choose(2))  {
-    case 0: sprintf(s, "(unsigned)%u", n); break;
-    case 1: sprintf(s, "(unsigned)0x%x", n); break;
+    case 0: sprintf(s, "%u", n); break;
+    case 1: sprintf(s, "0x%x", n); break;
   }
   strcpy(&buf[idx], s);
   idx += strlen(s);
