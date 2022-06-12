@@ -26,7 +26,13 @@ static unsigned choose(unsigned n){
 
 static void gen_num(){
   unsigned n = rand();
-  
+  char s[33];
+  switch (choose(2))  {
+    case 0: sprintf(s, "%u", n); break;
+    case 1: sprintf(s, "%x", n); break;
+  }
+  strcpy(&buf[idx], s);
+  idx += strlen(s);
 }
 
 inline static void gen(char c){
@@ -78,7 +84,7 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 
     int result;
-    fscanf(fp, "%d", &result);
+    if(!fscanf(fp, "%d", &result)) assert(0);
     pclose(fp);
 
     printf("%u %s\n", result, buf);
