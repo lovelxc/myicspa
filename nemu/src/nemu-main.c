@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
 //   if(is_exit_status_bad()){
 // 	  Log("exit_status is bad!");
 //   }
-  
+  #include<monior/sdb/sdb.h>
   char *s;
   unsigned t;
   bool zc;
