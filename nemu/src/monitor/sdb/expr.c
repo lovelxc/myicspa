@@ -145,7 +145,7 @@ static word_t eval(int p, int q){
       default:
         panic("error single token found");
     }
-    printf("%u\n", num);
+    printf("%s %u\n",tokens[p].str , num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {
