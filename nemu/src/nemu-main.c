@@ -18,15 +18,15 @@ int main(int argc, char *argv[]) {
   if(is_exit_status_bad()){
 	  Log("exit_status is bad!");
   }
-  // #include<../src/monitor/sdb/sdb.h>
-  // char s[655035];
-  // unsigned t;
-  // bool zc;
-  // while(scanf("%u %s", &t, s)){
-  //   unsigned cc = expr(s, &zc);
-  //   if(cc!=t){
-  //     printf("correct = %u, error = %u\n", t, cc);
-  //   }
-  // }
+  #include<../src/monitor/sdb/sdb.h>
+  char s[655035];
+  unsigned t;
+  bool zc;
+  while(scanf("%u %s", &t, s)){
+    unsigned cc = expr(s, &zc);
+    if(cc!=t){
+      printf("correct = %u, error = %u\n", t, cc);
+    }
+  }
   return 0;
 }
