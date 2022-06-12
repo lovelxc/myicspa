@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   /* Start engine. */
-  engine_start();
+  // engine_start();
   
   #include<../src/monitor/sdb/sdb.h>
   char s[655035];
