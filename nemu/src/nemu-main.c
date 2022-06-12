@@ -15,9 +15,7 @@ int main(int argc, char *argv[]) {
 
   /* Start engine. */
   engine_start();
-  if(is_exit_status_bad()){
-	  Log("exit_status is bad!");
-  }
+  
   #include<../src/monitor/sdb/sdb.h>
   char s[655035];
   unsigned t;
@@ -27,6 +25,9 @@ int main(int argc, char *argv[]) {
     if(cc!=t){
       printf("correct = %u, error = %u\n", t, cc);
     }
+  }
+  if(is_exit_status_bad()){
+	  Log("exit_status is bad!");
   }
   return 0;
 }
