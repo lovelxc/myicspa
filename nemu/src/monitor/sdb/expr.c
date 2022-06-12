@@ -85,7 +85,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        // 不知道为什么匹配不了空格？==> 因为输入就是没有空格的
+        
         if(rules[i].token_type == TK_NOTYPE) break; // 忽略空格
         tokens[nr_token].type = rules[i].token_type;
         // tokens[nr_token].str 的长度有限， 需要考虑
@@ -93,13 +93,12 @@ static bool make_token(char *e) {
           case TK_NUM_10:
           case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
-            printf("%s\n", tokens[nr_token].str);
             break;
           // default: TODO();
         }
         ++nr_token;
         // 检查是否溢出
-        // assert(ARRLEN(tokens[nr_token].str) < 32);
+        assert(strlen(tokens[nr_token].str) < 32);
         break;
       }
     }
