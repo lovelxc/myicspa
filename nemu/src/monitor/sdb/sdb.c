@@ -71,7 +71,7 @@ static int cmd_x(char *args) {
   word_t ans = expr(_expr, &bl);
   printf("ans=%u\n", ans);
   if(!bl) {
-    printf("bad expression!");
+    printf("Bad expression!\n");
     return 0;
   }
   for (int i = 0; i < n; ++i){
