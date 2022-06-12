@@ -20,11 +20,12 @@ int main(int argc, char *argv[]) {
   char s[655035];
   unsigned t;
   bool zc;
+  int i=1;
   while(scanf("%u %s", &t, s)){
     unsigned cc = expr(s, &zc);
     if(cc!=t){
       printf("correct = %u, error = %u\n", t, cc);
-    }else puts("OK");
+    }else printf("%d: OK", i++);
   }
   if(is_exit_status_bad()){
 	  Log("exit_status is bad!");
