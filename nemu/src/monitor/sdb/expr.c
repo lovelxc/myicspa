@@ -85,6 +85,8 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
+        // 检查是否溢出
+        Assert(strlen(tokens[nr_token].str) < 32, "tokens[nr_token].str = %d", substr_len);
         
         if(rules[i].token_type == TK_NOTYPE) break; // 忽略空格
         tokens[nr_token].type = rules[i].token_type;
@@ -97,8 +99,6 @@ static bool make_token(char *e) {
           // default: TODO();
         }
         ++nr_token;
-        // 检查是否溢出
-        Assert(strlen(tokens[nr_token].str) < 32, "tokens[nr_token].str = %d", substr_len);
         break;
       }
     }
