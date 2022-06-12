@@ -16,7 +16,7 @@ static char *code_format =
 "  return 0; "
 "}";
 
-static int idx;
+static int idx, n_token;
 static unsigned choose(unsigned n){
   unsigned t = rand();
   t %= n;
@@ -28,15 +28,16 @@ static void gen_num(){
   unsigned n = rand();
   char s[33];
   switch (choose(2))  {
-    case 0: sprintf(s, "%u", n); break;
-    case 1: sprintf(s, "%x", n); break;
+    case 0: sprintf(s, "(unsigned)%u", n); break;
+    case 1: sprintf(s, "(unsigned)0x%x", n); break;
   }
   strcpy(&buf[idx], s);
   idx += strlen(s);
+  n_token++;
 }
 
 inline static void gen(char c){
-  buf[idx] = c; buf[++idx] = '\0';
+  buf[idx] = c, buf[++idx] = '\0', n_token++;
 }
 static void gen_rand_op(){
   char c;
@@ -46,16 +47,19 @@ static void gen_rand_op(){
     case 2: c = '*'; break;
     case 3: c = '/'; break;
   }
-  buf[idx] = c; buf[++idx] = '\0';
+  buf[idx] = c, buf[++idx] = '\0', n_token++;
 }
 
 static void gen_rand_expr() {
-  buf[0] = '\0';
-  switch (choose(3)) {
+  // int lastidx = idx;
+  if(idx > 65535 / 2 || n_token > 20) {gen_num(); }
+  else  switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
+  // 检查新生成的表达式是否为0
+  
 }
 
 int main(int argc, char *argv[]) {
@@ -67,7 +71,8 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
-    idx = 0;
+    idx = n_token = 0;
+    buf[0] = '\0';
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
