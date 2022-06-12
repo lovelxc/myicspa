@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
 //   if(is_exit_status_bad()){
 // 	  Log("exit_status is bad!");
 //   }
-  #include<src/monitor/sdb/sdb.h>
-  char *s;
+  #include<../src/monitor/sdb/sdb.h>
+  char s[65535];
   unsigned t;
   bool zc;
   while(scanf("%u %s", &t, s)){
