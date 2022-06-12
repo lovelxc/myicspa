@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     unsigned cc = expr(s, &zc);
     if(cc!=t){
       printf("correct = %u, error = %u\n", t, cc);
-    }
+    }else puts("OK");
   }
   if(is_exit_status_bad()){
 	  Log("exit_status is bad!");
