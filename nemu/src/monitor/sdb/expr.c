@@ -161,11 +161,12 @@ static word_t eval(int p, int q){
         case ')': t++;break;
         case '(': t--;break;
       }
+      // 只取 一次 不在括号内的算符
       if(t == 0){
         if(tokens[i].type=='+' || tokens[i].type=='-') {
           op = i;
           break;
-        }else if(tokens[i].type=='*' || tokens[i].type=='/') op2 = i;
+        }else if(op2 == -1 && (tokens[i].type=='*' || tokens[i].type=='/')) op2 = i;
       }
       else if(t < 0) return -1; // 括号不匹配
     }
