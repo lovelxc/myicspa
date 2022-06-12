@@ -69,9 +69,10 @@ static int cmd_x(char *args) {
   
   bool bl = true;
   word_t ans = expr(_expr, &bl);
-  printf("ans=%u\n", ans);
+  
   if(!bl) {
     printf("Bad expression!\n");
+    printf("ans=%u\n", ans);
     return 0;
   }
   for (int i = 0; i < n; ++i){
