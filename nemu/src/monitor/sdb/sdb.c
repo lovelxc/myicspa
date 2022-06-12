@@ -62,11 +62,11 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  printf("expr = %s\n", args);
+  
   char *_expr = strtok(args, " ");
-  printf("expr = %s\n", args);
+  
   int n = atoi(_expr);
-  _expr = strtok(NULL, " ");
+  _expr = args + strlen(_expr) + 1;
   // uint32_t t;
   bool bl;
   printf("expr = %s\n", args);
