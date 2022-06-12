@@ -95,7 +95,7 @@ static bool make_token(char *e) {
           case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
-            printf("%s\n", tokens[nr_token].str);
+            // printf("%s\n", tokens[nr_token].str);
             break;
           // default: TODO();
         }
@@ -146,6 +146,7 @@ static word_t eval(int p, int q){
       default:
         panic("error single token found");
     }
+    printf("%u", num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {
