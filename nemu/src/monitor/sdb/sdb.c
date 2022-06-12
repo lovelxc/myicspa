@@ -70,7 +70,7 @@ static int cmd_x(char *args) {
   bool bl = true;
   word_t ans = expr(_expr, &bl);
   printf("ans=%u\n", ans);
-  if(bl) {
+  if(!bl) {
     printf("bad expression!");
     return 0;
   }
