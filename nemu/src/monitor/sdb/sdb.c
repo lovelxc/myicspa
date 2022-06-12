@@ -67,9 +67,13 @@ static int cmd_x(char *args) {
   // 表达式可能含空格
   _expr = args + strlen(_expr) + 1;
   // uint32_t t;
-  bool bl;
+  bool bl = true;
   word_t ans = expr(_expr, &bl);
   printf("ans=%u\n", ans);
+  if(bl) {
+    printf("bad expression!");
+    return 0;
+  }
   for (int i = 0; i < n; ++i){
 	
     // memcpy(&t, guest_to_host(_expr), sizeof(uint32_t));
