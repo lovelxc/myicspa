@@ -126,7 +126,6 @@ static bool check_parentheses(int p, int q){
 }
 
 static word_t eval(int p, int q){
-  printf("%d %d\n",p, q);
   if (p > q) {
     /* Bad expression */
     return -1;
@@ -147,7 +146,6 @@ static word_t eval(int p, int q){
       default:
         panic("error single token found");
     }
-    
     return num;
   }
   else if (check_parentheses(p, q) == true) {
