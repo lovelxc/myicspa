@@ -7,26 +7,26 @@ int is_exit_status_bad();
 
 int main(int argc, char *argv[]) {
 //   /* Initialize the monitor. */
-// #ifdef CONFIG_TARGET_AM
-//   am_init_monitor();
-// #else
-//   init_monitor(argc, argv);
-// #endif
+#ifdef CONFIG_TARGET_AM
+  am_init_monitor();
+#else
+  init_monitor(argc, argv);
+#endif
 
-//   /* Start engine. */
-//   engine_start();
-//   if(is_exit_status_bad()){
-// 	  Log("exit_status is bad!");
-//   }
-  #include<../src/monitor/sdb/sdb.h>
-  char s[655035];
-  unsigned t;
-  bool zc;
-  while(scanf("%u %s", &t, s)){
-    unsigned cc = expr(s, &zc);
-    if(cc!=t){
-      printf("correct = %u, error = %u\n", t, cc);
-    }
+  /* Start engine. */
+  engine_start();
+  if(is_exit_status_bad()){
+	  Log("exit_status is bad!");
   }
+  // #include<../src/monitor/sdb/sdb.h>
+  // char s[655035];
+  // unsigned t;
+  // bool zc;
+  // while(scanf("%u %s", &t, s)){
+  //   unsigned cc = expr(s, &zc);
+  //   if(cc!=t){
+  //     printf("correct = %u, error = %u\n", t, cc);
+  //   }
+  // }
   return 0;
 }
