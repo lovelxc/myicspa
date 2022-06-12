@@ -29,7 +29,7 @@ static void gen_num(){
   char s[33];
   switch (choose(2))  {
     case 0: sprintf(s, "%u", n); break;
-    case 1: sprintf(s, "0x%x", n); break;
+    case 1: sprintf(s, "(0x%x)", n); break;
   }
   strcpy(&buf[idx], s);
   idx += strlen(s);
@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
     if(!fscanf(fp, "%d", &result)) assert(0);
     pclose(fp);
 
-    printf("x 1 %u %s\n", result, buf);
+    printf("%u %s\n", result, buf);
   }
   printf("q\n");
   return 0;
