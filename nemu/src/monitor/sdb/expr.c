@@ -145,7 +145,7 @@ static word_t eval(int p, int q){
         sscanf(tokens[p].str, "%x", &num);
         break;
       default:
-        break;
+        panic("error single token found");
     }
     
     return num;

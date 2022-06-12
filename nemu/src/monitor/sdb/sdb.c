@@ -62,14 +62,12 @@ static int cmd_info(char *args) {
 }
 
 static int cmd_x(char *args) {
-  
   char *_expr = strtok(args, " ");
-  
   int n = atoi(_expr);
+  // 表达式可能含空格
   _expr = args + strlen(_expr) + 1;
   // uint32_t t;
   bool bl;
-  printf("expr = %s\n", args);
   word_t ans = expr(_expr, &bl);
   printf("ans=%u\n", ans);
   for (int i = 0; i < n; ++i){
