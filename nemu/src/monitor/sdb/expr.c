@@ -196,7 +196,7 @@ word_t expr(char *e, bool *success) {
   word_t ans = eval(0, nr_token - 1);
   if(ans == -1){
     *success = false;
-    panic("bad expression")
+    panic("bad expression");
     return 0;
   }
 
