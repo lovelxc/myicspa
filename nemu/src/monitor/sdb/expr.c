@@ -85,17 +85,17 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        // 检查是否溢出
+        // tokens[nr_token].str 的长度有限，检查是否溢出
         Assert(substr_len < 32, "tokens[nr_token].str = %d", substr_len);
         
         if(rules[i].token_type == TK_NOTYPE) break; // 忽略空格
         tokens[nr_token].type = rules[i].token_type;
-        // tokens[nr_token].str 的长度有限， 需要考虑
         switch (rules[i].token_type) {
           case TK_NUM_10:
           case TK_NUM_16:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
+            printf("%s", tokens[nr_token].str);
             break;
           // default: TODO();
         }
