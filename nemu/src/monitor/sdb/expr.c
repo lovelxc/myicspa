@@ -98,6 +98,7 @@ static bool make_token(char *e) {
         }
         ++nr_token;
         // 检查是否溢出
+        printf("%d", substr_len);
         assert(strlen(tokens[nr_token].str) < 32);
         break;
       }
