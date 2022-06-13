@@ -11,6 +11,14 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+typedef struct watchpoint {
+  int NO;
+  struct watchpoint *next;
+  char *expr;
+  word_t value;
+} WP;
+WP* new_wp();
+void free_wp(WP *wp);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -87,6 +95,20 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_w(char *args) {
+  bool bl;
+  word_t ans = expr(args, &bl);
+  
+  if(!bl) {
+    Log("Bad expression: %s", args);
+    return 0;
+  }
+  WP *p = new_wp();
+  (*p).value = ans;
+  (*p).expr = args;
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -97,10 +119,10 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "Execute next or next \%n program line", cmd_si},
+  { "si", "Execute next or next n program line", cmd_si},
   { "info", "List of all registers and their contents, for selected stack frame", cmd_info},
   { "x", "Print the value of EXP", cmd_x},
-
+  { "w", "Add watchpoint", cmd_w},
   /* TODO: Add more commands */
 
 };

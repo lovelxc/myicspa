@@ -5,9 +5,8 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
-  /* TODO: Add more members if necessary */
-
+  char *expr;
+  word_t value;
 } WP;
 // static 是为了防止其他地方修改这些数据，强制其他代码只能从函数调用中修改数据
 static WP wp_pool[NR_WP] = {};
@@ -57,3 +56,4 @@ void free_wp(WP *wp){
   wp->next = free_;
   free_ = wp;
 }
+
