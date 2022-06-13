@@ -6,8 +6,8 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM_10, TK_NUM_16
-
+  TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_NUM_10, TK_NUM_16, TK_REG,
+  TK_DEREF, TK_AND, TK_NEG
   /* TODO: Add more token types */
 
 };
@@ -28,8 +28,12 @@ static struct rule {
   {"\\/", '/'},         // divide
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
+  {"\\*", TK_DEREF},    // dereference 指针解引用
+  {"\\-", TK_NEG},      // 负数
+  {"\\$[a-zA-Z\\d]+", TK_REG},       // reg name
   {"==", TK_EQ},        // equal
-  
+  {"!=", TK_NEQ},        // not equal
+  {"&&", TK_AND},        // 与 布尔
   {"([1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
@@ -194,7 +198,21 @@ word_t expr(char *e, bool *success) {
     TODO();
     return 0;
   }
-
+  for (int i = 0; i < nr_token; i ++) {
+    // '*' 前只要不是数字，寄存器和')'，就是解引用
+    if (tokens[i].type == '*' && i == 0) tokens[i].type = TK_DEREF;
+    if (tokens[i].type == '-' && i == 0) tokens[i].type = TK_NEG;
+    else if (tokens[i].type == '*' || tokens[i].type == '-'){
+      int _tag = 0;
+      if(!(tokens[i - 1].type == TK_NUM_10 || tokens[i - 1].type == TK_NUM_16 ||
+        tokens[i - 1].type == TK_REG || tokens[i - 1].type == ')'))
+        _tag = 1;
+      if(_tag){
+        if(tokens[i].type == '*') tokens[i].type = TK_DEREF;
+        else if(tokens[i].type == '-') tokens[i].type = TK_NEG; 
+      }
+    }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   word_t ans = eval(0, nr_token - 1);
   if(ans == -1){
