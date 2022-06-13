@@ -106,6 +106,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NUM_10:
           case TK_NUM_16:
+          case TK_REG:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
             // printf("%s\n", tokens[nr_token].str);
