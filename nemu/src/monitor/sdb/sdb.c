@@ -51,11 +51,15 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
+  if(args==NULL) {
+    printf("r: print all registers\nw: print all watchpoints\n");
+    return 0;
+  }
   char *op = strtok(args, " ");
   if(strcmp("r", op) == 0){
     isa_reg_display();
   } else if(strcmp("w", op) == 0){
-    // print watch patch
+    // print watchpoints
     ;
   }
   return 0;
@@ -71,8 +75,7 @@ static int cmd_x(char *args) {
   word_t ans = expr(_expr, &bl);
   
   if(!bl) {
-    printf("Bad expression!\n");
-    printf("ans=%u\n", ans);
+    Log("Bad expression: %s", _expr);
     return 0;
   }
   for (int i = 0; i < n; ++i){

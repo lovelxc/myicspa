@@ -7,7 +7,7 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_NUM_10, TK_NUM_16, TK_REG,
-  TK_DEREF, TK_AND, TK_NEG
+  TK_DEREF, TK_AND, TK_NEG, TK_OR
   /* TODO: Add more token types */
 
 };
@@ -22,18 +22,27 @@ static struct rule {
    * 添加寄存器的识别模式，目前十进制常数不能为0
    */
   {"\\s+", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"\\-", '-'},         // minus
-  {"\\*", '*'},         // muti
-  {"\\/", '/'},         // divide
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
-  {"\\*", TK_DEREF},    // dereference 指针解引用
-  {"\\-", TK_NEG},      // 负数
-  {"\\$[a-zA-Z\\d]+", TK_REG},       // reg name
+  
+  {"||", TK_OR},        // 或 布尔 
+
+  {"&&", TK_AND},        // 与 布尔 
+
   {"==", TK_EQ},        // equal
   {"!=", TK_NEQ},        // not equal
-  {"&&", TK_AND},        // 与 布尔
+  
+  {"\\+", '+'},         // plus
+  {"\\-", '-'},         // minus
+  
+  {"\\*", '*'},         // muti
+  {"\\/", '/'},         // divide
+  
+  {"\\*", TK_DEREF},    // dereference 指针解引用
+  {"\\-", TK_NEG},      // 负数
+  
+
+  {"\\$[a-zA-Z\\d]+", TK_REG},       // reg name
   {"([1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
@@ -129,9 +138,10 @@ static bool check_parentheses(int p, int q){
   return false;
 }
 
-static word_t eval(int p, int q){
+static word_t eval(int p, int q, bool* success){
   if (p > q) {
     /* Bad expression */
+    *success = false;
     return -1;
   }
   else if (p == q) {
@@ -139,13 +149,21 @@ static word_t eval(int p, int q){
      * For now this token should be a number.
      * Return the value of the number.
      */
-    word_t num;
+    word_t num = 0;
+    bool bl;
     switch (tokens[p].type) {
       case TK_NUM_10:
         sscanf(tokens[p].str, "%u", &num);
         break;
       case TK_NUM_16:
         sscanf(tokens[p].str, "%x", &num);
+        break;
+      case TK_REG:
+        num = isa_reg_str2val(tokens[p].str, &bl);
+        if(!bl){
+          *success = false;
+          Log("%s not found", tokens[p].str);
+        }
         break;
       default:
         panic("error single token found");
@@ -157,10 +175,12 @@ static word_t eval(int p, int q){
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    return eval(p + 1, q - 1);
+    return eval(p + 1, q - 1, success);
   }
   else {
-    int op = -1, op2 = -1 , t = 0;
+    int op[7], t = 0;
+    memset(op, 0x3f, sizeof(op));
+    // 从右到左
     for(int i=q; i>=p; --i){
       switch (tokens[i].type) {
         case ')': t++;break;
@@ -168,45 +188,106 @@ static word_t eval(int p, int q){
       }
       // 只取 一次 不在括号内的算符
       if(t == 0){
-        if(tokens[i].type=='+' || tokens[i].type=='-') {
-          op = i;
+        switch (tokens[i].type){
+        case TK_OR:
+          if(op[0] < 0) op[0] = i;
           break;
-        }else if(op2 == -1 && (tokens[i].type=='*' || tokens[i].type=='/')) op2 = i;
+        case TK_AND:
+          if(op[1] < 0) op[1] = i;
+          break;
+        case TK_EQ:
+        case TK_NEQ:
+          if(op[2] < 0) op[2] = i;
+          break;
+        case '+':
+        case '-':
+          if(op[3] < 0) op[3] = i;
+          break;
+        case '*':
+        case '/':
+          if(op[4] < 0) op[4] = i;
+          break;
+        // 单目
+        case TK_DEREF:
+        case TK_NEG:
+          if(op[5] < 0) op[5] = i;
+          break;
+        default:
+          break;
+        }
       }
-      else if(t < 0) return -1; // 括号不匹配
+      else if(t < 0) { // 括号不匹配
+        *success = false;
+        Log("Parentheses not match");
+        return 0;
+      }
+       
     }
-    if(op==-1) op = op2;
-    if(t!=0 || op==-1) return -1; // 括号不匹配
-    word_t val1 = eval(p, op - 1);
-    word_t val2 = eval(op + 1, q);
+    int opc = -1;
+    for(int i=0; i<(sizeof(op)/sizeof(int)); ++i){
+      if(op[i]>=0){
+        opc = op[i];
+        break;
+      }
+    }
+    if(t!=0 || opc==-1) { // 括号不匹配
+      *success = false;
+      return 0;
+    }
+    // 单目运算符
+    if(op[5] == opc){
+      word_t val = eval(opc + 1, q, success), t;
+      switch (tokens[opc].type) {
+        case TK_DEREF: 
+          memcpy(&t, guest_to_host(val),sizeof(word_t));
+          return t;
+        case TK_NEG: return (-val);
+        default: panic("error unary operation found");
+      }
+    } 
+    // 双目
+    else{
+      word_t val1 = eval(p, opc - 1, success);
+      word_t val2 = eval(opc + 1, q, success);
 
-    switch (tokens[op].type) {
-      case '+': return val1 + val2;
-      case '-': return val1 - val2;
-      case '*': return val1 * val2;
-      case '/': 
-        if(val2==0) return -1;
-        else return val1 / val2;
-      default: panic("error type found");
+      switch (tokens[opc].type) {
+        case '+': return val1 + val2;
+        case '-': return val1 - val2;
+        case '*': return val1 * val2;
+        case '/': 
+          if(val2==0) return -1;
+          else return val1 / val2;
+        case TK_OR: return val1 || val2;
+        case TK_AND: return val1 && val2;
+        case TK_EQ: return val1 == val2;
+        case TK_NEQ: return val1 != val2;
+        default: panic("error ary operation found");
+      }
     }
   }
 }
 
 word_t expr(char *e, bool *success) {
+  *success = true;
   if (!make_token(e)) {
     *success = false;
-    TODO();
+    Log("Expression(%s) can't be make tokens", e);
     return 0;
   }
   for (int i = 0; i < nr_token; i ++) {
     // '*' 前只要不是数字，寄存器和')'，就是解引用
     if (tokens[i].type == '*' && i == 0) tokens[i].type = TK_DEREF;
-    if (tokens[i].type == '-' && i == 0) tokens[i].type = TK_NEG;
+    else if (tokens[i].type == '-' && i == 0) tokens[i].type = TK_NEG;
     else if (tokens[i].type == '*' || tokens[i].type == '-'){
-      int _tag = 0;
-      if(!(tokens[i - 1].type == TK_NUM_10 || tokens[i - 1].type == TK_NUM_16 ||
-        tokens[i - 1].type == TK_REG || tokens[i - 1].type == ')'))
-        _tag = 1;
+      int _tag = 0;    
+      switch (tokens[i - 1].type)  {
+        case TK_NUM_10:
+        case TK_NUM_16:
+        case TK_REG:
+        case ')':
+          _tag = 1;
+          break;
+      }
       if(_tag){
         if(tokens[i].type == '*') tokens[i].type = TK_DEREF;
         else if(tokens[i].type == '-') tokens[i].type = TK_NEG; 
@@ -214,11 +295,10 @@ word_t expr(char *e, bool *success) {
     }
   }
   /* TODO: Insert codes to evaluate the expression. */
-  word_t ans = eval(0, nr_token - 1);
-  if(ans == -1){
-    *success = false;
+  word_t ans = eval(0, nr_token - 1, success);
+  if(!(*success)){
+    Log("Expression(%s) can't be eval", e);
     return 0;
   }
-
   return ans;
 }
