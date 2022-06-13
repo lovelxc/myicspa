@@ -25,7 +25,7 @@ static struct rule {
   {"\\(", '('},         // left parentheses
   {"\\)", ')'},	        // right parentheses
   
-  {"||", TK_OR},        // 或 布尔 
+  {"\\|\\|", TK_OR},        // 或 布尔 
 
   {"&&", TK_AND},        // 与 布尔 
 
