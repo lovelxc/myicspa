@@ -5,7 +5,7 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  char *expr;
+  char expr[300];
   word_t value;
 } WP;
 // static 是为了防止其他地方修改这些数据，强制其他代码只能从函数调用中修改数据
@@ -66,7 +66,7 @@ void print_watchpoints(){
   }
   int i = 1;
   while(p){
-    printf("%d %u %p\n", i++, (*p).value, (*p).expr);
+    printf("%d %u %s\n", i++, (*p).value, (*p).expr);
     p = p->next;
   }
 }
