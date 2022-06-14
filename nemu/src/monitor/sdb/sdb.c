@@ -20,6 +20,7 @@ typedef struct watchpoint {
 WP* new_wp();
 void free_wp(WP *wp);
 void print_watchpoints();
+void del_wp(int n);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -98,7 +99,6 @@ static int cmd_x(char *args) {
 
 static int cmd_w(char *args) {
   bool bl;
-  
   word_t ans = expr(args, &bl);
   
   if(!bl) {
@@ -111,8 +111,15 @@ static int cmd_w(char *args) {
   Assert(p->expr,"cmd_w");
   strcpy((*p).expr, args);
   return 0;
+
 }
 
+static int cmd_d(char *args) {
+  if(!args) return 0;
+  int n = atoi(args);
+  del_wp(n);
+  return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -127,6 +134,7 @@ static struct {
   { "info", "List of all registers and their contents, for selected stack frame", cmd_info},
   { "x", "Print the value of EXP", cmd_x},
   { "w", "Add watchpoint", cmd_w},
+  { "d", "Delete watchpoint", cmd_d},
   /* TODO: Add more commands */
 
 };

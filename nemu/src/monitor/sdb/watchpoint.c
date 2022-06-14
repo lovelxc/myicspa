@@ -16,6 +16,7 @@ WP* new_wp();
 void free_wp(WP *wp);
 void print_watchpoints();
 void check_watchpoints();
+void del_wp(int n);
 
 void init_wp_pool() {
   int i;
@@ -89,4 +90,33 @@ void check_watchpoints(){
     p = p->next;
     i++;
   }
+}
+
+void del_wp(int n){
+  if(n <= 0 || n > NR_WP){
+    printf("%d is not a reasonable index!\n", n);
+    return ;
+  }
+  // 删除头节点特殊处理
+  if(n==1 && head){
+    head = head->next;
+  } else{
+    WP *p_front = head, *p = head->next;
+    int i = 2;
+    while(p && i != n) {
+      p_front = p_front->next, i++;
+      p = p_front->next;
+    }
+    if(!p){
+      printf("%d is oversize!\n", n);
+      return ;
+    }else{
+      printf("Delete No.%d watch\n", n);
+      p_front->next = p->next;
+      // 将p归还给free_
+      p->next = free_;
+      free_ = p;
+    }
+  }
+  print_watchpoints();
 }
