@@ -41,11 +41,11 @@ inline static void gen(char c){
 }
 static void gen_rand_op(){
   char c;
-  switch (choose(4))  {
+  switch (choose(3))  {
     case 0: c = '+'; break;
     case 1: c = '-'; break;
     case 2: c = '*'; break;
-    case 3: c = '/'; break;
+    // case 3: c = '/'; break;
   }
   buf[idx] = c, buf[++idx] = '\0', n_token++;
 }
