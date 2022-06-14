@@ -278,8 +278,8 @@ word_t expr(char *e, bool *success) {
   }
   for (int i = 0; i < nr_token; i ++) {
     // '*' 前只要不是数字，寄存器和')'，就是解引用
-    if (tokens[i].type == '*' && i == 0) tokens[i].type = TK_DEREF;
-    else if (tokens[i].type == '-' && i == 0) tokens[i].type = TK_NEG;
+    if (i == 0 && tokens[i].type == '*') tokens[i].type = TK_DEREF;
+    else if (i == 0 && tokens[i].type == '-') tokens[i].type = TK_NEG;
     else if (tokens[i].type == '*' || tokens[i].type == '-'){
       int _tag = 0;    
       switch (tokens[i - 1].type)  {
@@ -290,7 +290,7 @@ word_t expr(char *e, bool *success) {
           _tag = 1;
           break;
       }
-      if(_tag){
+      if(!_tag){
         if(tokens[i].type == '*') tokens[i].type = TK_DEREF;
         else if(tokens[i].type == '-') tokens[i].type = TK_NEG; 
       }
