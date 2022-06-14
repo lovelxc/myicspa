@@ -15,6 +15,7 @@ static WP *head = NULL, *free_ = NULL;
 WP* new_wp();
 void free_wp(WP *wp);
 void print_watchpoints();
+void check_watchpoints();
 
 void init_wp_pool() {
   int i;
@@ -70,5 +71,22 @@ void print_watchpoints(){
   while(p){
     printf("%d %u %s\n", i++, (*p).value, (*p).expr);
     p = p->next;
+  }
+}
+
+void check_watchpoints(){
+  WP *p = head;
+  int i = 1;
+  bool bl;
+  while(p){
+    word_t newv = expr(p->expr, &bl);
+    if(newv!=(*p).value){
+      Log("watchpoint %d:%s", i, (*p).expr);
+      printf("Old value = %u\n", (*p).value);
+      printf("New value = %u\n", newv);
+      (*p).value = newv;
+    }
+    p = p->next;
+    i++;
   }
 }
