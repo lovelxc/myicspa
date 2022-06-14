@@ -107,7 +107,7 @@ static int cmd_w(char *args) {
   }
   WP *p = new_wp();
   (*p).value = ans;
-  Assert(p->expr,"2");
+  Assert(p->expr,"cmd_w");
   printf("%ld \n", strlen(p->expr));
   strcpy((*p).expr, args);
   
