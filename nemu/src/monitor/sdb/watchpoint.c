@@ -38,7 +38,7 @@ WP* new_wp(){
   head = free_;
   free_ = free_->next;
   head->next = p;
-  printf("%ld\n",strlen(head->expr));
+  Log("%ld",strlen(head->expr));
   return head;
 }
 
