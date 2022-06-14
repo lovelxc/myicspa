@@ -256,6 +256,7 @@ static word_t eval(int p, int q, bool* success){
         case '-': return val1 - val2;
         case '*': return val1 * val2;
         case '/': 
+          printf("%u %u",val1 ,val2);
           if(val2==0) return -1;
           else return val1 / val2;
         case TK_OR: return val1 || val2;
