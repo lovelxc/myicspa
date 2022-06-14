@@ -38,7 +38,7 @@ WP* new_wp(){
   head = free_;
   free_ = free_->next;
   head->next = p;
-  Log("%ld",strlen(head->expr));
+  
   Assert(head->expr,"new_wp");
   return head;
 }
