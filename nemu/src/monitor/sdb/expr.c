@@ -228,6 +228,7 @@ static word_t eval(int p, int q, bool* success){
     for(int i=0; i<(sizeof(op)/sizeof(int)); ++i){
       if(op[i]>=0){
         opc = op[i];
+        print("chc: %d %d\n",i ,opc);
         break;
       }
     }
