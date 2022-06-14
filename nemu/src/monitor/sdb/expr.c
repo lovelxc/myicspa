@@ -180,7 +180,7 @@ static word_t eval(int p, int q, bool* success){
   }
   else {
     int op[7], t = 0;
-    memset(op, 0x3f, sizeof(op));
+    memset(op, 0xff, sizeof(op));
     // 从右到左
     for(int i=q; i>=p; --i){
       switch (tokens[i].type) {
@@ -240,7 +240,7 @@ static word_t eval(int p, int q, bool* success){
       word_t val = eval(opc + 1, q, success), t;
       switch (tokens[opc].type) {
         case TK_DEREF: 
-          memcpy(&t, guest_to_host(val),sizeof(word_t));
+          memcpy(&t, guest_to_host(val), sizeof(word_t));
           return t;
         case TK_NEG: return (-val);
         default: panic("error unary operation found");
