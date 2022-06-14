@@ -106,7 +106,7 @@ static int cmd_w(char *args) {
   }
   WP *p = new_wp();
   (*p).value = ans;
-  printf("%d %d\n", sizeof (*p).expr,sizeof args);
+  printf("%ld %ld\n", sizeof (*p).expr,sizeof args);
   strcpy((*p).expr, args);
   
   return 0;
