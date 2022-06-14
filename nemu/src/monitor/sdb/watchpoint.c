@@ -66,7 +66,7 @@ void print_watchpoints(){
   }
   int i = 1;
   while(p){
-    printf("%d %u %s\n", i++, (*p).value, (*p).expr);
+    printf("%d %u %p\n", i++, (*p).value, (*p).expr);
     p = p->next;
   }
 }
