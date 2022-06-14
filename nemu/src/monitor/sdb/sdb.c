@@ -14,8 +14,8 @@ void init_wp_pool();
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  char *expr;
   word_t value;
+  char expr[300];
 } WP;
 WP* new_wp();
 void free_wp(WP *wp);
