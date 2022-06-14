@@ -19,6 +19,7 @@ typedef struct watchpoint {
 } WP;
 WP* new_wp();
 void free_wp(WP *wp);
+void print_watchpoints();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -68,7 +69,7 @@ static int cmd_info(char *args) {
     isa_reg_display();
   } else if(strcmp("w", op) == 0){
     // print watchpoints
-    ;
+    print_watchpoints();
   }
   return 0;
 }
