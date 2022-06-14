@@ -111,7 +111,7 @@ void del_wp(int n){
       printf("%d is oversize!\n", n);
       return ;
     }else{
-      printf("Delete No.%d watch\n", n);
+      printf("Delete No.%d watchpoint:%s\n", n, p->expr);
       p_front->next = p->next;
       // 将p归还给free_
       p->next = free_;
