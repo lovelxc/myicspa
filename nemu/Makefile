@@ -44,3 +44,7 @@ else
 # Include rules to build NEMU
 include $(NEMU_HOME)/scripts/native.mk
 endif
+SHELL=/bin/zsh
+.PHONY: count
+count:
+	cloc --quiet --csv --include-lang=C,C/C++\ Header . | tail -n 1 | awk -F, '{print "All-file = "$$1,", Code-line = "$$5}'
