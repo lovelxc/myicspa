@@ -240,8 +240,7 @@ static word_t eval(int p, int q, bool* success){
       word_t val = eval(opc + 1, q, success), t;
       switch (tokens[opc].type) {
         case TK_DEREF: 
-          memcpy(&t, guest_to_host(val), sizeof(word_t));
-          return t;
+          return vaddr_read(val, 4);
         case TK_NEG: return (-val);
         default: panic("error unary operation found");
       }

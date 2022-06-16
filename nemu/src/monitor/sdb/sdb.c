@@ -90,10 +90,8 @@ static int cmd_x(char *args) {
     return 0;
   }
   for (int i = 0; i < n; ++i){
-    uint32_t t;
-    t = vaddr_read(ans, 4);
     // memcpy(&t, guest_to_host(ans), sizeof(uint32_t));
-    printf("0x%08x\n", t);
+    printf("0x%08x\n", vaddr_read(ans, 4));
     ans += sizeof(uint32_t);
   }
   return 0;
