@@ -3,6 +3,7 @@
 
 #include <isa.h>
 
+// 操作数
 typedef struct {
   union {
     IFDEF(CONFIG_ISA_x86, uint64_t *pfreg);
@@ -16,6 +17,10 @@ typedef struct {
   IFDEF(CONFIG_ISA_x86, uint8_t reg);
 } Operand;
 
+/*存放在执行一条指令过程中的译码和执行信息, 
+ *包括指令的PC, 执行方式, 以及操作数的信息. 还有一些信息是ISA相关的
+  ISADecodeInfo 抽象。具体的定义在nemu/src/isa/$ISA/include/isa-def.h
+*/
 typedef struct Decode {
   vaddr_t pc;
   vaddr_t snpc; // static next pc

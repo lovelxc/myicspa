@@ -3,6 +3,7 @@
 #include <cpu/exec.h>
 #include <memory/paddr.h>
 #include <utils.h>
+#include <memory/vaddr.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
@@ -90,7 +91,8 @@ static int cmd_x(char *args) {
   }
   for (int i = 0; i < n; ++i){
     uint32_t t;
-    memcpy(&t, guest_to_host(ans), sizeof(uint32_t));
+    t = vaddr_read(ans, 4);
+    // memcpy(&t, guest_to_host(ans), sizeof(uint32_t));
     printf("0x%08x\n", t);
     _expr += sizeof(uint32_t);
   }

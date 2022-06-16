@@ -43,7 +43,9 @@ static const void* g_exec_table[TOTAL_INSTR] = {
 
 static void fetch_decode_exec_updatepc(Decode *s) {
   fetch_decode(s, cpu.pc);
+  // 模拟指令执行的真正操作
   s->EHelper(s);
+  // 更新pc
   cpu.pc = s->dnpc;
 }
 
@@ -64,9 +66,11 @@ void assert_fail_msg() {
 void fetch_decode(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
-  int idx = isa_fetch_decode(s);
+  int idx = isa_fetch_decode(s);  // s-snpc会在这里修改
   s->dnpc = s->snpc;
-  s->EHelper = g_exec_table[idx];
+  // 记录函数指针，确定要执行的操作
+  // g_exec_table指向"执行辅助函数"(execution helper function)
+  s->EHelper = g_exec_table[idx]; 
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
