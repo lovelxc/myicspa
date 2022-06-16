@@ -86,6 +86,7 @@ void check_watchpoints(){
       printf("Old value = %u\n", (*p).value);
       printf("New value = %u\n", newv);
       (*p).value = newv;
+      nemu_state.state = NEMU_STOP;
     }
     p = p->next;
     i++;
