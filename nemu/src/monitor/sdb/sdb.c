@@ -94,7 +94,7 @@ static int cmd_x(char *args) {
     t = vaddr_read(ans, 4);
     // memcpy(&t, guest_to_host(ans), sizeof(uint32_t));
     printf("0x%08x\n", t);
-    _expr += sizeof(uint32_t);
+    ans += sizeof(uint32_t);
   }
   return 0;
 }
