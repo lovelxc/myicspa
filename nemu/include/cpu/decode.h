@@ -38,7 +38,8 @@ typedef struct Decode {
 
 // `INSTR_LIST` is defined at src/isa/$ISA/include/isa-all-instr.h
 #define def_EXEC_ID(name) concat(EXEC_ID_, name),
-#define def_all_EXEC_ID() enum { MAP(INSTR_LIST, def_EXEC_ID) TOTAL_INSTR }
+//TOTAL_INSTR
+#define def_all_EXEC_ID() enum { MAP(INSTR_LIST, def_EXEC_ID) TOTAL_INSTR } 
 
 
 // --- prototype of table helpers ---
@@ -54,6 +55,16 @@ static inline def_DHelper(empty) {}
 
 
 // --- pattern matching mechanism ---
+/*
+用于将模式字符串转换成3个整型变量, 
+其中key抽取了模式字符串中的0和1, 
+mask表示key的掩码, 
+而shift则表示opcode距离最低位的比特数量, 用于帮助编译器进行优化.
+以lui指令??????? ????? ????? ??? ????? 01101 11为例: 
+key   = 0x37 = 0b 0011 0111;
+mask  = 0x7f = 0b 1111 1111; // 掩码
+shift = 0;
+*/
 __attribute__((always_inline))
 static inline void pattern_decode(const char *str, int len,
     uint32_t *key, uint32_t *mask, uint32_t *shift) {

@@ -17,7 +17,7 @@ static def_DopHelper(i) {
 }
 
 static def_DopHelper(r) {
-  bool is_write = flag;
+  bool is_write = flag; // 用flag指示是否写入寄存器
   static word_t zero_null = 0;
   op->preg = (is_write && val == 0) ? &zero_null : &gpr(val);
 }
@@ -59,7 +59,7 @@ def_THelper(main) {
 };
 
 int isa_fetch_decode(Decode *s) {
-  s->isa.instr.val = instr_fetch(&s->snpc, 4);
+  s->isa.instr.val = instr_fetch(&s->snpc, 4); //s->snpc会自动加4
   int idx = table_main(s);
   return idx;
 }

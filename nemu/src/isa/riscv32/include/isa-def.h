@@ -37,7 +37,7 @@ typedef struct {
       uint32_t rd        : 5;
       uint32_t imm31_12  :20;
     } u;
-    uint32_t val;
+    uint32_t val; // 指令的二进制raw值
   } instr;
 } riscv32_ISADecodeInfo;
 

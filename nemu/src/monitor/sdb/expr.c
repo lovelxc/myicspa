@@ -5,6 +5,8 @@
  */
 #include <regex.h>
 #include <memory/paddr.h>
+#include <memory/vaddr.h>
+
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NEQ, TK_NUM_10, TK_NUM_16, TK_REG,
   TK_DEREF, TK_AND, TK_NEG, TK_OR
@@ -237,7 +239,7 @@ static word_t eval(int p, int q, bool* success){
     }
     // 单目运算符
     if(op[5] == opc){
-      word_t val = eval(opc + 1, q, success), t;
+      word_t val = eval(opc + 1, q, success);
       switch (tokens[opc].type) {
         case TK_DEREF: 
           return vaddr_read(val, 4);
