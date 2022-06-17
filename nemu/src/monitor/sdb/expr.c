@@ -162,10 +162,10 @@ static word_t eval(int p, int q, bool* success){
         sscanf(tokens[p].str, "%x", &num);
         break;
       case TK_REG:
-        num = isa_reg_str2val(tokens[p].str, &bl);
+        num = isa_reg_str2val(tokens[p].str + 1, &bl);
         if(!bl){
           *success = false;
-          Log("%s not found", tokens[p].str);
+          Log("%s not found", tokens[p].str + 1);
         }
         break;
       default:
