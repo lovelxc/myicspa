@@ -44,7 +44,7 @@ static struct rule {
   {"\\-", TK_NEG},      // 负数
   
 
-  {"\\$[a-zA-Z\\d]+", TK_REG},       // reg name
+  {"\\$[a-zA-Z0-9]+", TK_REG},       // reg name
   {"([1-9][0-9]*)", TK_NUM_10},				  // 8: 10num
   {"0[xX]([0-9a-fA-F]{1,8})", TK_NUM_16},				  // 9: 16num
 };
