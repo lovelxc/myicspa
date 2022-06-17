@@ -111,7 +111,7 @@ static bool make_token(char *e) {
           case TK_REG:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
-            printf("%s\n", tokens[nr_token].str);
+            // printf("%s\n", tokens[nr_token].str);
             break;
           // default: TODO();
         }
@@ -163,6 +163,7 @@ static word_t eval(int p, int q, bool* success){
         break;
       case TK_REG:
         num = isa_reg_str2val(tokens[p].str + 1, &bl);
+        printf("%s = %u\n", tokens[p].str + 1, num);
         if(!bl){
           *success = false;
           Log("%s not found", tokens[p].str + 1);
