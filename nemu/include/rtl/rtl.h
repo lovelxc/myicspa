@@ -4,7 +4,11 @@
 #include <cpu/decode.h>
 
 extern const rtlreg_t rzero;
-extern rtlreg_t tmp_reg[4];
+/*
+t0, t1, ... - 只能在RTL伪指令的实现过程中存放中间结果
+s0, s1, ... - 只能在译码辅助函数DHe和执行辅助函数EHe的实现过程中存放中间结果
+*/
+extern rtlreg_t tmp_reg[5];
 
 #define dsrc1 (id_src1->preg)
 #define dsrc2 (id_src2->preg)
@@ -13,6 +17,7 @@ extern rtlreg_t tmp_reg[4];
 #define s1    (&tmp_reg[1])
 #define s2    (&tmp_reg[2])
 #define t0    (&tmp_reg[3])
+#define t1    (&tmp_reg[4])
 #define rz (&rzero)
 
 #define def_rtl(name, ...) void concat(rtl_, name)(Decode *s, __VA_ARGS__)
