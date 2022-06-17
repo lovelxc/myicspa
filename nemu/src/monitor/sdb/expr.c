@@ -163,7 +163,6 @@ static word_t eval(int p, int q, bool* success){
         break;
       case TK_REG:
         num = isa_reg_str2val(tokens[p].str + 1, &bl);
-        printf("%s = %u\n", tokens[p].str + 1, num);
         if(!bl){
           *success = false;
           Log("%s not found", tokens[p].str + 1);
