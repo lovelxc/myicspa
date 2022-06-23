@@ -16,7 +16,7 @@ uint64_t g_nr_guest_instr = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 const rtlreg_t rzero = 0;
-rtlreg_t tmp_reg[4];
+rtlreg_t tmp_reg[5];
 
 void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
@@ -35,7 +35,12 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 }
 
 #include <isa-exec.h>
+/*
+g_exec_table[TOTAL_INSTR] = {
+  [EXEC_ID_xxx] = exec_xxx,
+};
 
+*/
 #define FILL_EXEC_TABLE(name) [concat(EXEC_ID_, name)] = concat(exec_, name),
 static const void* g_exec_table[TOTAL_INSTR] = {
   MAP(INSTR_LIST, FILL_EXEC_TABLE)

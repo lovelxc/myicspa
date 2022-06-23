@@ -42,7 +42,7 @@ typedef struct Decode {
 #define def_all_EXEC_ID() enum { MAP(INSTR_LIST, def_EXEC_ID) TOTAL_INSTR } 
 
 
-// --- prototype of table helpers ---
+// --- prototype of table helpers 表格辅助函数 ---
 #define def_THelper(name) static inline int concat(table_, name) (Decode *s)
 #define def_THelper_body(name) def_THelper(name) { return concat(EXEC_ID_, name); }
 #define def_all_THelper() MAP(INSTR_LIST, def_THelper_body)
