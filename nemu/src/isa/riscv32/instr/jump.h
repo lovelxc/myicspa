@@ -1,11 +1,13 @@
 def_EHelper(jal) {
-  // ddest <- pc + imm
+  // ddest <- pc + 4
   *ddest = s->snpc;
-  rtl_j(id_src1->simm);
+  *s0 = id_src1->simm;
+  rtl_sext(s, s1, s0, 21);
+  rtl_j(s, *s1 + s->pc);
 }
 
 def_EHelper(jalr) {
   *ddest = s->snpc;
   *s0 = id_src2->imm + id_src1->simm;
-  rtl_j(s0);
+  rtl_j(s, *s0);
 }

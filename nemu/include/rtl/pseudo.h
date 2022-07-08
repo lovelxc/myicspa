@@ -6,6 +6,7 @@
 #endif
 
 /* RTL pseudo instructions */
+// t0, t1, ... - 只能在RTL伪指令的实现过程中存放中间结果
 
 static inline def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
   rtl_addi(s, dest, rz, imm);
@@ -27,16 +28,19 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  if((1 << width) & (*src1)){
+    *dest = *src1 << (sizeof(rtlreg_t) - width);
+    *dest = *dest >> (sizeof(rtlreg_t) - width);
+  }
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  ;
 }
 
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  TODO();
+  ;
 }
 #endif

@@ -50,12 +50,12 @@ static def_DHelper(S) {
   decode_op_r(s, id_dest, s->isa.instr.s.rs2, false);
 }
 
-// J型指令
+// J型指令(和U型指令一样的结构)
 static def_DHelper(J) {
-  decode_op_r(s, id_src1, s->isa.instr.s.rs1, false);
-  sword_t simm = (s->isa.instr.s.simm11_5 << 5) | s->isa.instr.s.imm4_0;
-  decode_op_i(s, id_src2, simm, false);
-  decode_op_r(s, id_dest, s->isa.instr.s.rs2, false);
+  sword_t simm = (s->isa.instr.j.simm20 << 20) | (s->isa.instr.j.imm19_12 << 12)\
+    | (s->isa.instr.j.imm11 << 11) | (s->isa.instr.j.imm10_1 << 1);
+  decode_op_i(s, id_src1, simm, false);
+  decode_op_r(s, id_dest, s->isa.instr.j.rd, true);
 }
 
 def_THelper(load) {
@@ -67,7 +67,9 @@ def_THelper(store) {
   def_INSTR_TAB("??????? ????? ????? 010 ????? ????? ??", sw);
   return EXEC_ID_inv;
 }
-// 只有opcode一样是不能区分指令集的，例如load有lw，lb，lh三种，此时需要在def_THelper里根据funct3的值进行区分
+
+// 只有opcode一样是不能区分指令集的，例如load有lw，lb，lh三种，此时需要在def_THelper里根据
+// funct3的值进行区分
 def_THelper(main) {
   def_INSTR_IDTAB("??????? ????? ????? ??? ????? 00000 11", I     , load);
   def_INSTR_IDTAB("??????? ????? ????? ??? ????? 01000 11", S     , store);
