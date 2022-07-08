@@ -11,7 +11,7 @@ def_EHelper(jalr) {
   *ddest = s->snpc;
   *s0 = *dsrc2;
   rtl_sext(s, s1, s0, 12); // sext(offset))
-  *s1 = (*dsrc1 + *dsrc2) & (~(sword_t)1);
+  *s1 = (*dsrc1 + id_src2->imm) & (~(sword_t)1);
   printf("%x\n", (word_t)*s1);
   rtl_jr(s, s1);
 }
