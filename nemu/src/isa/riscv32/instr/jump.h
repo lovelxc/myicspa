@@ -4,7 +4,7 @@ def_EHelper(jal) {
   *ddest = s->snpc;
   *s0 = id_src1->simm;
   rtl_sext(s, s1, s0, 21);
-  printf("in jal:%x %x\n", (*s1) , s->pc);
+  printf("in jal:%d %x\n", (*s1) , s->pc);
   rtl_j(s, (*s1) + s->pc);
 }
 
