@@ -143,7 +143,9 @@ static inline def_rtl(host_sm, void *addr, const rtlreg_t *src1, int len) {
 // control
 
 static inline def_rtl(j, vaddr_t target) {
+  printf("%x\n", s->dnpc);
   s->dnpc = target;
+  printf("%x\n", s->dnpc);
 }
 
 static inline def_rtl(jr, rtlreg_t *target) {
