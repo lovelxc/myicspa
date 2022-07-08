@@ -3,7 +3,7 @@ def_EHelper(jal) {
   *ddest = s->snpc;
   *s0 = id_src1->simm;
   rtl_sext(s, s1, s0, 21);
-  rtl_j(s, *s1 + s->pc);
+  rtl_j(s, (*s1) + s->pc);
 }
 
 def_EHelper(jalr) {
