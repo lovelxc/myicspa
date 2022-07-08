@@ -1,8 +1,10 @@
+// #include<stdio.h>
 def_EHelper(jal) {
   // ddest <- pc + 4
   *ddest = s->snpc;
   *s0 = id_src1->simm;
   rtl_sext(s, s1, s0, 21);
+  printf("in jal:%x %x", (*s1) , s->pc);
   rtl_j(s, (*s1) + s->pc);
 }
 
