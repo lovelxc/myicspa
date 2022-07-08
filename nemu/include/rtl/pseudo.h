@@ -33,12 +33,12 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
     
     *dest = (*src1) << (sizeof(rtlreg_t) - width);
     *dest = (*dest) >> (sizeof(rtlreg_t) - width);
-  }
+  } else *dest = *src1;
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- zeroext(src1[(width * 8 - 1) .. 0])
-  ;
+  *dest = *src1;
 }
 
 static inline def_rtl(msb, rtlreg_t* dest, const rtlreg_t* src1, int width) {
