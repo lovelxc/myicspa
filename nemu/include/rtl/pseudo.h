@@ -29,12 +29,9 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
   if((1 << (width - 1)) & (*src1)){
-    printf("%ld %ld\n", sizeof(rtlreg_t), (sizeof(rtlreg_t) - width));
-    printf("%d\n", *src1);
-    *dest = (*src1) << (sizeof(rtlreg_t) - width);
-    printf("%d\n", *dest);
-    *dest = (*dest) >> (sizeof(rtlreg_t) - width);
-    printf("%d\n", *dest);
+    int bitw = 4*sizeof(rtlreg_t) - width;
+    *dest = (*src1) << bitw;
+    *dest = (*dest) >> bitw;
   } else *dest = *src1;
 }
 
