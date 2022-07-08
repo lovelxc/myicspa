@@ -13,6 +13,6 @@ def_EHelper(jalr) {
   *ddest = s->snpc;
   *s0 = *dsrc2;
   rtl_sext(s, s1, s0, 12); // sext(offset))
-  *s1 = (*dsrc1 + *s1) & (sword_t)(~1);
+  *s1 = (*dsrc1 + *dsrc1) & (sword_t)(~1);
   rtl_jr(s, s1);
 }
