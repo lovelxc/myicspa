@@ -8,3 +8,10 @@ def_EHelper(auipc) {
   *s0 = s->pc;
   rtl_addi(s, ddest, s0, id_src1->imm);
 }
+
+def_EHelper(addi) {
+  // ddest <- pc + imm
+  *s0 = id_src2->simm;
+  rtl_sext(s, s1, s0, 12);
+  rtl_addi(s, ddest, dsrc1, *s1);
+}
