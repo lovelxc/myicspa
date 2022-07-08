@@ -6,7 +6,7 @@
 static const uint32_t img [] = {
   0x00000297,  // auipc t0,0x80000
   0x00000513,
-  0xfe9ff0ef,
+  0x00008067,
   0x00000297,  // lui t0,0x80000
   0x0002a023,  // sw  zero,0(t0)
   0x0002a503,  // lw  a0,0(t0)
