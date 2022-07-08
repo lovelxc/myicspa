@@ -31,7 +31,7 @@ static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   if((1 << (width - 1)) & (*src1)){
     int bitw = 8*sizeof(rtlreg_t) - width;
     printf("%d %d\n", *src1,bitw );
-    *dest = (*src1) << (sizeof(rtlreg_t) - width);
+    *dest = (sword_t)(*src1) << (sizeof(rtlreg_t) - width);
     printf("%d\n", *dest);
     *dest = (sword_t)(*dest) >> (sizeof(rtlreg_t) - width);
     printf("%d\n", *dest);
