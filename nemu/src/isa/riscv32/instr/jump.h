@@ -4,9 +4,9 @@ def_EHelper(jal) {
   // ddest <- pc + 4
   *ddest = s->snpc;
   *s0 = id_src1->simm;
-  printf("%x\n", (word_t)*s1);
+  printf("before sext:%x\n", (word_t)*s0);
   rtl_sext(s, s1, s0, 21);
-  printf("%x\n", (word_t)*s1);
+  printf("after sext:%x\n", (word_t)*s1);
   rtl_j(s, (*s1) + s->pc);
 }
 
