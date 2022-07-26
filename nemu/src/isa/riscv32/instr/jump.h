@@ -2,7 +2,7 @@
 // J-type
 def_EHelper(jal) {
   // ddest <- pc + 4
-  *ddest = s->snpc;
+  // *ddest = s->snpc;
   rtl_j(s, id_src1->simm + s->pc);
 }
 
