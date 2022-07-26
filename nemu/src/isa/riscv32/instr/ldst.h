@@ -7,7 +7,5 @@ def_EHelper(sw) {
 }
 
 def_EHelper(lhu) {
-  *s0 = id_src2->imm;
-//  rtl_sext(s, s1, s0, 12);
   rtl_lm(s, ddest, dsrc1, id_src2->imm, 2);
 }
