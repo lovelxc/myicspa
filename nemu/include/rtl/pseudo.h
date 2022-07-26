@@ -27,14 +27,8 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 }
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
+  // *dest = SEXT(*src1, width);
   TODO();
-  
-  // dest <- signext(src1[(width * 8 - 1) .. 0])
-  if((1 << (width - 1)) & (*src1)){
-    int bitw = 8*sizeof(rtlreg_t) - width;
-    *dest = (sword_t)(*src1) << bitw;
-    *dest = (sword_t)(*dest) >> bitw;
-  } else *dest = *src1;
 }
 
 static inline def_rtl(zext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
