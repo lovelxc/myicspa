@@ -1,9 +1,9 @@
 def_EHelper(lb) {
-  rtl_lms(s, ddest, dsrc1, id_src2->imm, 1);
+  rtl_lm(s, ddest, dsrc1, id_src2->imm, 1);
 }
 
 def_EHelper(lh) {
-  rtl_lms(s, ddest, dsrc1, id_src2->imm, 2);
+  rtl_lm(s, ddest, dsrc1, id_src2->imm, 2);
 }
 
 def_EHelper(lw) {
