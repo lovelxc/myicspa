@@ -7,7 +7,8 @@
 // no isa-dependent rtl instructions
 // t0, t1, ... - 只能在RTL伪指令的实现过程中存放中间结果
 // 要自己写
-// static inline def_rtl(xxx, rtlreg_t* dest, const rtlreg_t imm) {
-//   rtl_xxx(s, dest, rz, imm);
-// }
+static inline def_rtl(setrelopiu, uint32_t relop, rtlreg_t *dest,
+    const rtlreg_t *src1, word_t imm) {
+  *dest = interpret_relop(relop, *src1, imm);
+}
 #endif
