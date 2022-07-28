@@ -37,7 +37,7 @@ def_EHelper(slli) {
 }
 
 def_EHelper(srli) {
-  rtl_slli(s, ddest, dsrc1, id_src2->imm);
+  rtl_srli(s, ddest, dsrc1, id_src2->imm);
 }
 
 def_EHelper(srai) {
@@ -77,7 +77,7 @@ def_EHelper(and) {
 }
 
 def_EHelper(srl) {
-  rtl_sll(s, ddest, dsrc1, dsrc2);
+  rtl_srl(s, ddest, dsrc1, dsrc2);
 }
 
 def_EHelper(sra) {
