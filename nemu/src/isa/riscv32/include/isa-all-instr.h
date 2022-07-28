@@ -5,7 +5,7 @@
 f(beq) f(bne) f(blt) f(bge) f(bltu) f(bgeu)\
 f(lw) f(lb) f(lh) f(lbu) f(lhu)\
 f(sw) f(sb) f(sh)\
-f(addi) f(slti) f(sltiu)\
+f(addi) f(slti) f(sltiu) f(xori) f(ori) f(andi)\
 f(add) f(sub)\
 
 
