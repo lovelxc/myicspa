@@ -32,6 +32,18 @@ def_EHelper(andi) {
   rtl_andi(s, ddest, dsrc1, id_src2->simm);
 }
 
+def_EHelper(slli) {
+  rtl_slli(s, ddest, dsrc1, id_src2->imm);
+}
+
+def_EHelper(srli) {
+  rtl_slli(s, ddest, dsrc1, id_src2->imm);
+}
+
+def_EHelper(srai) {
+  rtl_srai(s, ddest, dsrc1, id_src2->imm);
+}
+
 def_EHelper(add) {
   rtl_add(s, ddest, dsrc1, dsrc2);
 }
