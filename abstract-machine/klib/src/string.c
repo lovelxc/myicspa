@@ -29,7 +29,7 @@ char *strcat(char *dst, const char *src) {
   char *d = dst;
   while(*d != '\0') ++d;
   for(const char *s = src; *s != '\0'; s++, d++){
-    *d = *src;
+    *d = *s;
   }
   *d = '\0';
   return dst;
