@@ -12,7 +12,13 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-  panic("Not implemented");
+  char *d = dst;
+  while(*src != '\0'){
+    *d = *src;
+    ++d, ++src;
+  }
+  *d = '\0';
+  return dst;
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
