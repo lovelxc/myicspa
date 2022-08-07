@@ -53,6 +53,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           *out++ = c;
           break;
         default:
+          break;
           panic("vsprintf: ");
       }
     }
