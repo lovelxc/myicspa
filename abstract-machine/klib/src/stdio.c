@@ -14,7 +14,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  panic("Not implemented");
+  if(fmt == NULL) return -1;
+  char *res = out;
   va_list ap;
   int d;
   char c;
@@ -47,7 +48,6 @@ int sprintf(char *out, const char *fmt, ...) {
             *out++ = buf[len--];
           }
         }
-          
         break;
       case 'c': /* char */
         /* need a cast here since va_arg only
@@ -61,6 +61,7 @@ int sprintf(char *out, const char *fmt, ...) {
     ++fmt;
   }
   va_end(ap);
+  return strlen(res);
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
