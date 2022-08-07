@@ -21,9 +21,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
       switch(*(++fmt)){
         case 's': /* string */
           s = va_arg(ap, char *);
-          while(*s){
-            *out++ = *s++;
-          }
+          if(s != NULL)
+            while(*s){
+              *out++ = *s++;
+            }
           break;
         case 'd': /* int */
           d = va_arg(ap, int);
