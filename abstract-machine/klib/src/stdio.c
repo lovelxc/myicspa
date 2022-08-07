@@ -10,12 +10,12 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented");
+  // panic("Not implemented");
   int d;
   char c;
   char *s;
   char buf[34];
-  
+  char *res = out;
   while (*fmt){
     if(*fmt == '%'){
       fmt++;
@@ -60,6 +60,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     }
     ++fmt;
   }
+  return strlen(res);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
