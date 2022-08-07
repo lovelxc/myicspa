@@ -40,8 +40,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
               buf[len++] = d%10 + '0';
               d /= 10;
             }
-            while(len > 0){
-              *out++ = buf[len-- - 1];
+            len--;
+            while(len >= 0){
+              *out++ = buf[len--];
             }
           }
           break;
