@@ -36,9 +36,9 @@ int sprintf(char *out, const char *fmt, ...) {
           *out++ = '-';
           d = -d;
         }
-        int len = 0;
         if(d == 0) *out++ = '0';
         else{
+          int len = 0;
           while(d != 0){
             buf[len++] = d%10 - '0';
             d /= 10;
