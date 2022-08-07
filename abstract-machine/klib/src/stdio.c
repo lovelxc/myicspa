@@ -15,6 +15,52 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   panic("Not implemented");
+  va_list ap;
+  int d;
+  char c;
+  char *s;
+  char buf[34];
+  va_start(ap, fmt);
+  while (*fmt){
+    switch (*fmt){
+      case 's': /* string */
+        s = va_arg(ap, char *);
+        while(*s){
+          *out++ = *s++;
+        }
+        break;
+      case 'd': /* int */
+        d = va_arg(ap, int);
+        memset(buf, 0, sizeof(buf));
+        if(d < 0){
+          *out++ = '-';
+          d = -d;
+        }
+        int len = 0;
+        if(d == 0) *out++ = '0';
+        else{
+          while(d != 0){
+            buf[len++] = d%10 - '0';
+            d /= 10;
+          }
+          while(len > 0){
+            *out++ = buf[len--];
+          }
+        }
+          
+        break;
+      case 'c': /* char */
+        /* need a cast here since va_arg only
+          takes fully promoted types */
+        c = (char)va_arg(ap, int);
+        *out++ = c;
+        break;
+      default:
+        *out++ = *fmt;
+    }
+    ++fmt;
+  }
+  va_end(ap);
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
