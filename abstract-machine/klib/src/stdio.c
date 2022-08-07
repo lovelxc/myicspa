@@ -28,13 +28,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           break;
         case 'd': /* int */
           d = va_arg(ap, int);
-          memset(buf, 0, sizeof(buf));
           if(d < 0){
             *out++ = '-';
             d = -d;
           }
           if(d == 0) *out++ = '0';
           else{
+            memset(buf, 0, sizeof(buf));
             int len = 0;
             while(d != 0){
               buf[len++] = d%10 + '0';
