@@ -42,7 +42,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             }
             len--;
             while(len >= 0){
-              *out++ = buf[len-- - 1];
+              *out++ = buf[len--];
             }
           }
           break;
@@ -53,7 +53,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           *out++ = c;
           break;
         default:
-          *out++ = *fmt;
+          panic("vsprintf: ");
       }
     }
     else{
