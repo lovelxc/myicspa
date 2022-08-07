@@ -72,7 +72,7 @@ void *memset(void *s, int c, size_t n) {
   if(s == NULL || n <= 0) return s;
   unsigned char *tmp = s, t = c;
   while(n--){
-    *tmp = t, ++tmp;
+    *tmp++ = t;
   }
   return s;
 }
