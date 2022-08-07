@@ -34,7 +34,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           }
           if(d == 0) *out++ = '0';
           else{
-            memset(buf, 0, sizeof(buf));
+            memset(buf, '\0', sizeof(buf));
             int len = 0;
             while(d != 0){
               buf[len++] = d%10 + '0';
